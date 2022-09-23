@@ -20,13 +20,13 @@ import cjsbridge_ui.dialog.MsgDialog;
  * @email chenjunsen@outlook.com
  * @date 2022/9/23 8:53
  */
-public class CJSBUIPlugin implements CJSBH5Plugin {
+public class CJSBUIPlugin implements CJSBH5Plugin,JSAction {
 
     @Override
     public ArrayList<String> registeredAction() {
         ArrayList<String> actions = new ArrayList<>();
-        actions.add(JSAction.SHOW_TOAST);
-        actions.add(JSAction.SHOW_DIALOG);
+        actions.add(SHOW_TOAST);
+        actions.add(SHOW_DIALOG);
         return actions;
     }
 
@@ -38,13 +38,13 @@ public class CJSBUIPlugin implements CJSBH5Plugin {
     @Override
     public void dispatchAction(WebView webView, String action, JSONObject params, CJSBCallBack cjsbCallBack) {
         switch (action) {
-            case JSAction.SHOW_TOAST:
+            case SHOW_TOAST:
                 String msg0 = params.getString("msg");
                 Toast.makeText(webView.getContext(), msg0, Toast.LENGTH_LONG).show();
 //                MsgDialog.show1((Activity) webView.getContext(),msg0);
                 cjsbCallBack.apply(true, "normalToast", null);
                 break;
-            case JSAction.SHOW_DIALOG:
+            case SHOW_DIALOG:
                 String title = "提示";
                 if (params.containsKey("title")) {
                     title = params.getString("title");
